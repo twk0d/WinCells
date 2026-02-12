@@ -19,7 +19,7 @@ function Confirm-Minimum-Tools {
     [System.Collections.Generic.List[string]]$ToolsNotFound = @()
 
     foreach ($Tool in $Requirements) {
-        if (Get-Command $Tool -ErrorAction SilentlyContinue) {
+        if (Test-Tool -ToolName $Tool) {
             Write-Log -Message "Found: $Tool" -Level 'SUCCESS'
         }
         else {
@@ -32,4 +32,24 @@ function Confirm-Minimum-Tools {
     return [string[]]$ToolsNotFound
 }
 
-Export-ModuleMember -Function Confirm-Minimum-Tools -Variable Requirements
+function Test-Tool {
+    <#
+    .SYNOPSIS
+        Checks for the existence of a specific tool.
+    .DESCRIPTION
+        Uses Get-Command to verify if the specified tool is installed.
+    .PARAMETER ToolName
+        The name of the tool to check for.
+    .OUTPUTS
+        [bool] True if the tool is found, otherwise False.
+    #>
+    [OutputType([bool])] # Documentation of type
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$ToolName
+    )
+
+    return [bool](Get-Command $ToolName -ErrorAction SilentlyContinue)
+}
+
+Export-ModuleMember -Function Confirm-Minimum-Tools -Function Test-Tool
