@@ -49,7 +49,42 @@ function Test-Tool {
         [string]$ToolName
     )
 
+    if ([string]::IsNullOrWhiteSpace($ToolName)) {
+        throw "ToolName cannot be empty or whitespace."
+    }
+
     return [bool](Get-Command $ToolName -ErrorAction SilentlyContinue)
 }
 
-Export-ModuleMember -Function Confirm-Minimum-Tools -Function Test-Tool
+function Test-WingetPackage {
+    <#
+    .SYNOPSIS
+        Checks if a package is installed via winget.
+    .DESCRIPTION
+        Uses winget list to verify if the specified package is installed.
+    .PARAMETER PackageName
+        The name or ID of the package to check for.
+    .OUTPUTS
+        [bool] True if the package is found, otherwise False.
+    #>
+    [OutputType([bool])]
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$PackageName
+    )
+
+    try {
+        $result = winget list --id $PackageName 2>&1
+        
+        # Check if the package was found in the output
+        if ($result -match [regex]::Escape($PackageName)) {
+            return $true
+        }
+        return $false
+    }
+    catch {
+        return $false
+    }
+}
+
+Export-ModuleMember -Function Confirm-Minimum-Tools, Test-Tool, Test-WingetPackage

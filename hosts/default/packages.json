@@ -1,0 +1,46 @@
+{
+    "core": [
+        {
+            "enabled": true,
+            "type": "winget",
+            "name": "Git",
+            "id": "Git.Git"
+        },
+        {
+            "enabled": true,
+            "type": "winget",
+            "name": "JetBrains Mono Nerd Font",
+            "id": "DEVCOM.JetBrainsMonoNerdFont"
+        },
+        {
+            "enabled": false,
+            "type": "external",
+            "name": "Exemplo App Externo",
+            "url": "https://link-direto.com/setup.exe",
+            "fileName": "setup.exe",
+            "args": "/S"
+        }
+    ],
+    "dev": [
+        {
+            "enabled": true,
+            "type": "winget",
+            "name": "VS Code",
+            "id": "Microsoft.VisualStudioCode"
+        },
+        {
+            "enabled": true,
+            "type": "winget",
+            "name": "Docker",
+            "id": "Docker.DockerDesktop"
+        }
+    ],
+    "optional": [
+        {
+            "enabled": false,
+            "type": "winget",
+            "name": "Discord",
+            "id": "Discord.Discord"
+        }
+    ]
+}
