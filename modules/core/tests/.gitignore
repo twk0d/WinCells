@@ -1,0 +1,12 @@
+# Test output files
+test-results.xml
+coverage.xml
+*.coverage
+TestResults/
+
+# Pester cache
+*.psm1.pester
+
+# Test logs
+*.log
+test-*.log
